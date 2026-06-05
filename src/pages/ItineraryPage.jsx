@@ -119,7 +119,7 @@ export default function ItineraryPage() {
               <div className="modal-title">Build itinerary</div>
               <button className="modal-close" onClick={() => setModal(null)}>×</button>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 16 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 12, marginBottom: 16 }}>
               <div className="form-group"><label>Itinerary title *</label><input value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))} placeholder="e.g. Goa 5 Nights Family Package" /></div>
               <div className="form-group"><label>Link to lead (optional)</label>
                 <select value={form.lead_id} onChange={e => setForm(f => ({ ...f, lead_id: e.target.value }))}>
@@ -137,7 +137,7 @@ export default function ItineraryPage() {
                     <strong style={{ fontSize: 13 }}>Day {i + 1}</strong>
                     {form.days.length > 1 && <button className="btn btn-sm btn-danger" onClick={() => removeDay(i)}>Remove</button>}
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: 8 }}>
                     <div className="form-group"><label>Date</label><input type="date" value={day.date} onChange={e => updateDay(i, 'date', e.target.value)} /></div>
                     <div className="form-group"><label>City</label><input value={day.city} onChange={e => updateDay(i, 'city', e.target.value)} /></div>
                     <div className="form-group"><label>Hotel</label><input value={day.hotel} onChange={e => updateDay(i, 'hotel', e.target.value)} /></div>

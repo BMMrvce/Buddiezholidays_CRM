@@ -74,7 +74,7 @@ export default function Reports() {
         <div className="stat-card"><div className="stat-val">₹{(avgBooking / 1000).toFixed(1)}k</div><div className="stat-label">Avg. booking value</div></div>
       </div>
 
-      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",className:"reports-grid", gap: 16, marginBottom: 16 }}>
+      <div className="reports-grid" style={{display:"grid",gridTemplateColumns:"repeat(auto-fit, minmax(280px, 1fr))", gap: 16, marginBottom: 16 }}>
         <div className="card">
           <div style={{ fontWeight: 500, marginBottom: 14 }}>Revenue (last 6 months)</div>
           <ResponsiveContainer width="100%" height={200}>

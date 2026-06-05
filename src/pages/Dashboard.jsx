@@ -88,7 +88,7 @@ export default function Dashboard({ onNavigate }) {
         </div>
       </div>
 
-      <div className="dash-grid" style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:14,marginBottom:20}}>
+      <div className="dash-grid" style={{display:'grid',gridTemplateColumns:'repeat(auto-fit, minmax(280px, 1fr))',gap:14,marginBottom:20}}>
         <div className="card">
           <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12}}>
             <strong style={{fontSize:14}}>Latest website bookings</strong>

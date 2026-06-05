@@ -249,7 +249,7 @@ export default function Bookings() {
               ))}
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, fontSize: 13 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 12, fontSize: 13 }}>
               {[
                 ['Phone', selected.phone], ['Email', selected.email],
                 ['Destination', selected.destination || '—'],

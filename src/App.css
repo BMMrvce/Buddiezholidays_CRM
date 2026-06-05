@@ -69,6 +69,13 @@ body {
 /* ── LAYOUT ── */
 .app-root { display: flex; min-height: 100vh; min-height: 100dvh; }
 
+/* Global responsive safeguards */
+img { max-width: 100%; height: auto; }
+.main-content { min-width: 0; max-width: 100%; }
+.page { width: 100%; box-sizing: border-box; }
+.card { min-width: 0; }
+.card, .mobile-card { overflow-wrap: anywhere; word-break: break-word; }
+
 /* ── SIDEBAR (desktop) ── */
 .sidebar {
   width: var(--side-w); min-height: 100vh;
@@ -319,6 +326,9 @@ select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
   /* Dashboard two-col → single col */
   .dash-grid { grid-template-columns: 1fr !important; }
 
+  /* Any inline 2/3-col grids inside cards/modals → single col */
+  .settings-grid { grid-template-columns: 1fr !important; }
+
   /* Table → mobile card list */
   .desktop-table { display: none !important; }
   .mobile-list { display: block; }
@@ -345,6 +355,16 @@ select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
   /* Buttons full-width when stacked */
   .page-header { flex-direction: column; align-items: stretch; }
   .page-header .btn { text-align: center; justify-content: center; }
+}
+
+/* ══════════════════════════════════════════
+   SMALL PHONES  (max 380px)
+══════════════════════════════════════════ */
+@media (max-width: 380px) {
+  .page { padding: 12px 10px 88px; }
+  .stats-row { grid-template-columns: 1fr; }
+  .stat-val { font-size: 24px; }
+  .mobile-card-actions .btn { flex: 1; justify-content: center; }
 }
 
 /* ══════════════════════════════════════════

@@ -48,7 +48,7 @@ export default function Settings() {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }} className="settings-grid">
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }} className="settings-grid">
 
         {/* Account overview */}
         <div className="card" style={{ gridColumn: '1/-1', display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>

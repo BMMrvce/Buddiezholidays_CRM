@@ -145,7 +145,7 @@ export default function Payments() {
         <div className="stat-card"><div className="stat-val" style={{ color: 'var(--accent)' }}>₹{(totalProfit / 1000).toFixed(1)}k</div><div className="stat-label">Est. profit</div></div>
       </div>
 
-      <div className="card" style={{ padding: 0 }}>
+      <div className="card desktop-table" style={{ padding: 0 }}>
         <div className="table-wrap">
           <table>
             <thead>
@@ -197,6 +197,46 @@ export default function Payments() {
             </tbody>
           </table>
         </div>
+      </div>
+
+      {/* Mobile card list */}
+      <div className="mobile-list">
+        {loading ? <div style={{ color: 'var(--text2)', padding: '20px 0', textAlign: 'center' }}>Loading…</div> :
+          withLead.length === 0 ? <div className="empty"><div className="empty-icon">◆</div>No payments yet</div> :
+          withLead.map(p => {
+            const fully = isFullyPaid(p.total_amount, p.advance_paid)
+            return (
+              <div key={p.id} className="mobile-card">
+                <div className="mobile-card-row">
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{ fontWeight: 600, fontSize: 14 }}>{p.lead?.full_name || '—'}</div>
+                    {p.lead?.destination && <div style={{ fontSize: 12, color: 'var(--text2)', marginTop: 2 }}>{p.lead.destination}</div>}
+                  </div>
+                  {statusPill(p.status)}
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, fontSize: 13, margin: '8px 0' }}>
+                  <div><span style={{ color: 'var(--text2)' }}>Total: </span>₹{num(p.total_amount).toLocaleString('en-IN')}</div>
+                  <div><span style={{ color: 'var(--text2)' }}>Received: </span><span style={{ color: 'var(--green)' }}>₹{num(p.advance_paid).toLocaleString('en-IN')}</span></div>
+                  <div><span style={{ color: 'var(--text2)' }}>Balance: </span><span style={{ color: num(p.balance_due) > 0 ? 'var(--red)' : 'var(--green)', fontWeight: 600 }}>₹{num(p.balance_due).toLocaleString('en-IN')}</span></div>
+                  <div><span style={{ color: 'var(--text2)' }}>Due: </span>{p.balance_due_date || '—'}</div>
+                </div>
+                <div className="mobile-card-actions">
+                  {fully ? (
+                    <>
+                      {p.invoice_sent_at
+                        ? <button className="btn btn-sm" onClick={() => sendInvoice(p, p.lead)}>↻ Resend invoice</button>
+                        : <button className="btn btn-sm btn-mail" disabled={!p.lead?.email} onClick={() => sendInvoice(p, p.lead)}>Send invoice</button>}
+                      {p.lead?.phone && <button className="btn btn-sm btn-wa"
+                        onClick={() => window.open(waLink(p.lead.phone, waInvoiceMessage({ clientName: p.lead.full_name, destination: p.lead.destination, payment: p, invoiceNo: p.invoice_no || invoiceNumber(p) })), '_blank')}>WhatsApp</button>}
+                    </>
+                  ) : (
+                    <button className="btn btn-sm btn-primary" onClick={() => openEdit(p)}>Record payment</button>
+                  )}
+                </div>
+              </div>
+            )
+          })
+        }
       </div>
 
       {modal && (
