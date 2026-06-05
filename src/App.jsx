@@ -7,6 +7,7 @@ import Payments from './pages/Payments'
 import FollowUps from './pages/FollowUps'
 import Reports from './pages/Reports'
 import Settings from './pages/Settings'
+import Gallery from './pages/Gallery'
 import Login from './pages/Login'
 import { AGENCY_NAME } from './lib/supabase'
 import { useAuth } from './lib/auth.jsx'
@@ -20,18 +21,19 @@ const NAV = [
   { id: 'itinerary', label: 'Itinerary', icon: '◈' },
   { id: 'followups', label: 'Follow-ups',icon: '◷' },
   { id: 'payments',  label: 'Payments',  icon: '◆' },
+  { id: 'gallery',   label: 'Gallery',   icon: '▥' },
   { id: 'reports',   label: 'Reports',   icon: '▣' },
   { id: 'settings',  label: 'Settings',  icon: '◉' },
 ]
 
 // Only show 5 items in bottom nav (most used)
-const MOBILE_NAV = ['dashboard','leads','followups','payments','settings']
+const MOBILE_NAV = ['dashboard','leads','bookings','gallery','settings']
 
-const PAGES = { Dashboard, Leads, Bookings, ItineraryPage, FollowUps, Payments, Reports, Settings }
+const PAGES = { Dashboard, Leads, Bookings, ItineraryPage, FollowUps, Payments, Reports, Settings, Gallery }
 const PAGE_MAP = {
   dashboard: 'Dashboard', leads: 'Leads', bookings: 'Bookings',
   itinerary: 'ItineraryPage', followups: 'FollowUps',
-  payments: 'Payments', reports: 'Reports', settings: 'Settings'
+  payments: 'Payments', reports: 'Reports', settings: 'Settings', gallery: 'Gallery'
 }
 
 export default function App() {
