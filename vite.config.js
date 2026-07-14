@@ -9,7 +9,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png'],
       // Let the install prompt work while testing with `npm run dev`
-      devOptions: { enabled: true, type: 'module' },
+      devOptions: { enabled: false },
       manifest: {
         name: 'Buddiez Holidays CRM',
         short_name: 'Buddiez CRM',

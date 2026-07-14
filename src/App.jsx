@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useLeadNotifications } from './lib/lead-notifications'
 import Dashboard from './pages/Dashboard'
 import Leads from './pages/Leads'
 import Bookings from './pages/Bookings'
@@ -39,6 +40,7 @@ const PAGE_MAP = {
 export default function App() {
   const { user, loading, signOut } = useAuth()
   const [page, setPage] = useState('dashboard')
+  useLeadNotifications(!!user)
   const [sideOpen, setSideOpen] = useState(true)
   const PageComp = PAGES[PAGE_MAP[page]]
 

@@ -1,40 +1,35 @@
-import { createContext, useContext, useEffect, useState } from 'react'
-import { supabase } from './supabase'
+import { createContext, useContext, useState } from 'react'
 
-const AuthContext = createContext({ session: null, user: null, displayName: '', loading: true, signOut: () => {} })
+const ADMIN_EMAIL    = 'admin@buddiezholidays.com'
+const ADMIN_PASSWORD = '123456'
 
-function nameFromUser(user) {
-  if (!user) return ''
-  const meta = user.user_metadata || {}
-  return meta.full_name || meta.name || meta.display_name || (user.email ? user.email.split('@')[0] : '')
-}
+const AuthContext = createContext({ user: null, loading: false, signOut: () => {} })
 
 export function AuthProvider({ children }) {
-  const [session, setSession] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState(() => {
+    try { return JSON.parse(sessionStorage.getItem('crm_user')) } catch { return null }
+  })
 
-  useEffect(() => {
-    let mounted = true
-    supabase.auth.getSession().then(({ data }) => {
-      if (!mounted) return
-      setSession(data.session)
-      setLoading(false)
-    })
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, newSession) => {
-      setSession(newSession)
-      setLoading(false)
-    })
-    return () => { mounted = false; sub.subscription.unsubscribe() }
-  }, [])
-
-  const value = {
-    session,
-    user: session?.user || null,
-    displayName: nameFromUser(session?.user),
-    loading,
-    signOut: () => supabase.auth.signOut(),
+  function signIn(email, password) {
+    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+      const u = { email: ADMIN_EMAIL, display_name: 'Admin' }
+      sessionStorage.setItem('crm_user', JSON.stringify(u))
+      setUser(u)
+      return { error: null }
+    }
+    return { error: { message: 'Invalid email or password' } }
   }
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+
+  function signOut() {
+    sessionStorage.removeItem('crm_user')
+    setUser(null)
+  }
+
+  return (
+    <AuthContext.Provider value={{ user, loading: false, displayName: 'Admin', signOut, signIn }}>
+      {children}
+    </AuthContext.Provider>
+  )
 }
 
 export function useAuth() {
